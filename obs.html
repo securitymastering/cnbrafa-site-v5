@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050507">
+  <title>CNBRAFA — Modo OBS</title>
+  <link rel="stylesheet" href="/obs.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="brand" href="/"><span>♛</span><b>CNB</b><em>RAFA</em></a>
+    <div class="bar-copy"><small>LIVE HUB V5</small><strong>MODO OBS</strong></div>
+    <a class="back" href="/">← Voltar ao site</a>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div><span class="kicker">OBS BROWSER SOURCES</span><h1>Overlays que respondem à <em>live em tempo real</em></h1><p>Adicione cada URL abaixo como uma Fonte de Navegador no OBS. Todos os widgets usam fundo transparente e recebem o mesmo estado compartilhado do Live Hub via SSE.</p></div>
+      <div class="status"><i></i><span>HUB</span><b id="hubStatus">CONECTANDO</b></div>
+    </section>
+
+    <section class="quick-guide">
+      <b>NO OBS:</b><span>Fontes → + → Navegador → cole a URL → defina largura/altura → marque “Atualizar navegador quando a cena ficar ativa”.</span>
+    </section>
+
+    <section class="grid" id="overlayGrid"></section>
+
+    <section class="test-panel">
+      <div><span class="kicker">TESTE DE ALERTA</span><h2>Dispare um alerta sem esperar a Twitch</h2><p>Entre com a mesma senha do Painel do Criador. O teste entra no Pulso da Live e aparece imediatamente em <code>/overlay/alert</code>.</p></div>
+      <form id="testForm">
+        <input id="adminPassword" type="password" placeholder="Senha do painel" autocomplete="current-password">
+        <input id="testUser" type="text" value="@viewer_teste" maxlength="40" aria-label="Usuário de teste">
+        <button type="submit">DISPARAR TESTE ♛</button>
+        <small id="testFeedback"></small>
+      </form>
+    </section>
+
+    <section class="notes">
+      <h2>Como cada overlay funciona</h2>
+      <div class="note-grid">
+        <article><b>MISSÃO</b><p>Atualiza título, porcentagem e meta quando você salva a Central.</p></article>
+        <article><b>RANKING</b><p>Reordena automaticamente os jogos conforme votos globais entram.</p></article>
+        <article><b>REACT</b><p>Mostra somente o próximo react que você marcou como <strong>Aprovado</strong>.</p></article>
+        <article><b>PULSO</b><p>Mostra votos, reacts, moderação, Twitch e mudanças recentes do hub.</p></article>
+        <article><b>ALERTA</b><p>Por padrão reage a resgates Twitch e atividades externas; use <code>?all=1</code> para tudo.</p></article>
+        <article><b>LIVE</b><p>Exibe online/offline, jogo atual, título e viewers sincronizados.</p></article>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script src="/obs.js"></script>
+</body>
+</html>

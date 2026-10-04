@@ -1,0 +1,13 @@
+{
+  "name": "cnbrafa-live-hub-v5",
+  "version": "5.0.0",
+  "private": true,
+  "description": "Central da Live CNBRAFA com backend, SQLite, tempo real, painel administrativo e overlays OBS transparentes.",
+  "scripts": {
+    "start": "node --no-warnings server.js",
+    "dev": "node --no-warnings server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

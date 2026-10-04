@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050507" />
+  <title>CNBRAFA — Live Hub V5</title>
+  <meta name="description" content="Central oficial do CNBRAFA com dados compartilhados em tempo real, Twitch e overlays transparentes para OBS." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <div class="redemption-overlay" id="redemptionOverlay" aria-live="polite" aria-hidden="true">
+    <div class="redemption-crown">♛</div>
+    <div>
+      <small>RESGATE DA COMUNIDADE</small>
+      <strong id="overlayReward">INTERAÇÃO ATIVADA</strong>
+      <span id="overlayUser">@viewer</span>
+    </div>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#inicio" aria-label="CNBRAFA - início">
+      <span class="brand-mark">♛</span>
+      <span class="brand-text"><b>CNB</b><i>RAFA</i></span>
+      <span class="live-pulse"><em></em> LIVE HUB</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+    <nav class="nav" id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#central">Central</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#jogos">Jogos</a>
+      <a href="#reacts">Reacts</a>
+      <a href="#interacoes">Interações</a>
+      <a href="#contato">Contato</a>
+      <a href="/obs">OBS</a>
+    </nav>
+
+    <a class="btn btn-primary desktop-cta" href="https://www.twitch.tv/cnbrafa" target="_blank" rel="noopener">Assistir na Twitch ↗</a>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero section">
+      <video class="hero-video" autoplay muted loop playsinline poster="assets/estudio-cnbrafa.png" aria-hidden="true">
+        <source src="assets/wallpaper-animado.mp4" type="video/mp4">
+      </video>
+      <div class="hero-shade"></div>
+      <div class="hero-grid"></div>
+
+      <div class="hero-content reveal">
+        <div class="eyebrow"><span class="dot"></span> GAMEPLAY • DISCIPLINA • EVOLUÇÃO • RESULTADOS</div>
+        <h1><span class="word-white">CNB</span><span>RAFA</span></h1>
+        <p class="hero-copy">Um hub feito para transformar a live em experiência: escolha jogos, envie conteúdos para react, participe das decisões e acione interações conectadas à Twitch.</p>
+
+        <div class="hero-actions">
+          <a href="#central" class="btn btn-primary">Entrar na Central da Live</a>
+          <a href="#jogos" class="btn btn-ghost">Escolher próximo jogo</a>
+        </div>
+
+        <div class="social-row" aria-label="Redes sociais">
+          <a href="https://www.instagram.com/cnbrafa" target="_blank" rel="noopener"><b>IG</b><span>Instagram<small>@cnbrafa</small></span></a>
+          <a href="https://www.tiktok.com/@cnbrafaa" target="_blank" rel="noopener"><b>TT</b><span>TikTok<small>@cnbrafaa</small></span></a>
+          <a href="https://www.twitch.tv/cnbrafa" target="_blank" rel="noopener"><b>TW</b><span>Twitch<small>cnbrafa</small></span></a>
+          <a href="https://kick.com/cnbrafa" target="_blank" rel="noopener"><b>K</b><span>Kick<small>cnbrafa</small></span></a>
+          <a href="https://www.youtube.com/@cnbrafa" target="_blank" rel="noopener"><b>YT</b><span>YouTube<small>@cnbrafa</small></span></a>
+        </div>
+      </div>
+
+      <aside class="hero-console reveal delay-1" aria-label="Painel do canal">
+        <div class="console-top"><span>CNBRAFA // LIVE SYSTEM</span><div><i></i><i></i><i></i></div></div>
+        <div class="console-screen">
+          <div class="avatar-ring"><img src="assets/foto-cnbrafa.png" alt="Retrato do criador CNBRAFA"></div>
+          <span class="console-label">STATUS</span>
+          <strong id="streamStatus">PRONTO PARA A PRÓXIMA LIVE</strong>
+          <div class="signal-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="console-stats"><div><b>05</b><span>redes</span></div><div><b>08+</b><span>jogos</span></div><div><b>LIVE</b><span>comunidade</span></div></div>
+          <a href="#central" class="terminal-link">&gt; abrir_central_de_controle_da_live</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="motto-band" aria-label="Valores do canal">
+      <div class="ticker-track">
+        <span>DISCIPLINA</span><i>♛</i><span>FOCO</span><i>♛</i><span>FORÇA</span><i>♛</i><span>EVOLUÇÃO</span><i>♛</i><span>RESULTADOS</span><i>♛</i>
+        <span>DISCIPLINA</span><i>♛</i><span>FOCO</span><i>♛</i><span>FORÇA</span><i>♛</i><span>EVOLUÇÃO</span><i>♛</i><span>RESULTADOS</span><i>♛</i>
+      </div>
+    </section>
+
+    <section id="central" class="section shell control-center-section">
+      <div class="section-heading reveal">
+        <div><span class="kicker">00 / CENTRAL DE CONTROLE</span><h2>A live vira um <span>jogo coletivo</span></h2></div>
+        <p>Um painel único e compartilhado: jogo atual, missão, votação global, fila moderada de reacts, recompensas e atividade da comunidade atualizados em tempo real.</p>
+      </div>
+
+      <div class="live-command reveal">
+        <article class="live-spotlight glass">
+          <div class="command-topline">
+            <div class="command-status"><span class="status-badge live" id="centralSourceBadge"><i></i> HUB REALTIME</span><span class="live-clock" id="centralUpdatedAt">CONECTANDO...</span></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="mini-btn" href="/obs" style="text-decoration:none">MODO OBS</a><button class="mini-btn" id="openCreatorPanel">PAINEL DO CRIADOR</button></div>
+          </div>
+          <div class="live-spotlight-content">
+            <div class="now-playing-art"><img src="assets/estudio-cnbrafa.png" alt="Estúdio gamer CNBRAFA"><span id="centralLiveFlag">STANDBY</span></div>
+            <div class="now-playing-copy">
+              <span class="terminal-label">AGORA NO CNBRAFA</span>
+              <h3 id="centralGame">Próximo jogo em votação</h3>
+              <p id="centralTitle">Central preparada para a próxima transmissão.</p>
+              <div class="live-data-row">
+                <div><b id="centralViewers">--</b><span>viewers</span></div>
+                <div><b id="centralTopGame">--</b><span>mais votado</span></div>
+                <div><b id="centralReactCount">0</b><span>reacts na fila</span></div>
+              </div>
+              <div class="central-buttons"><a class="btn btn-primary" href="https://www.twitch.tv/cnbrafa" target="_blank" rel="noopener">Abrir Twitch ↗</a><a class="btn btn-ghost" href="#jogos">Votar no próximo jogo</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="mission-card glass">
+          <div class="mission-header"><div><span class="terminal-label">MISSÃO DA LIVE</span><h3 id="missionTitle">Ativar a comunidade</h3></div><span class="mission-rank" id="missionPercent">0%</span></div>
+          <p id="missionDescription">Cada interação registrada alimenta a meta da sessão.</p>
+          <div class="mission-progress"><span id="missionBar"></span></div>
+          <div class="mission-numbers"><b><span id="missionCurrent">0</span> / <span id="missionTarget">100</span></b><small>PROGRESSO DA MISSÃO</small></div>
+          <div class="collective-box"><div><span class="terminal-label">COMBO DA COMUNIDADE</span><strong>Nível <em id="communityLevel">1</em></strong></div><div class="energy-ring"><span id="communityEnergy">0</span><small>ENERGIA</small></div></div>
+          <div class="energy-track"><span id="communityEnergyBar"></span></div>
+          <p class="mission-note" id="centralChallenge">Desafio coletivo: usar votos, reacts e recompensas para movimentar a live.</p>
+        </article>
+      </div>
+
+      <div class="community-dashboard reveal delay-1">
+        <article class="dashboard-card ranking-card">
+          <div class="dashboard-head"><div><span class="terminal-label">RANKING AO VIVO</span><h3>Jogo mais pedido</h3></div><a href="#jogos">VER TODOS →</a></div>
+          <div class="live-ranking" id="centralRanking"></div>
+        </article>
+        <article class="dashboard-card action-card">
+          <div class="dashboard-head"><div><span class="terminal-label">AÇÕES COLETIVAS</span><h3>Entre na partida</h3></div><span class="pulse-dot"></span></div>
+          <div class="collective-actions">
+            <a href="#jogos"><b>🎮 Votar no próximo jogo</b><span>Ajude a definir a próxima sessão.</span></a>
+            <a href="#reacts"><b>📺 Mandar para o react</b><span>Coloque um conteúdo na fila.</span></a>
+            <a href="#interacoes"><b>♛ Ver recompensas</b><span>Descubra o que os pontos podem ativar.</span></a>
+          </div>
+        </article>
+        <article class="dashboard-card activity-card">
+          <div class="dashboard-head"><div><span class="terminal-label">PULSO DA LIVE</span><h3>Eventos recentes</h3></div><span id="centralEventMode">LOCAL</span></div>
+          <div class="central-event-feed" id="centralEventFeed"><div class="central-empty">Aguardando a primeira ação da comunidade.</div></div>
+        </article>
+        <article class="dashboard-card reward-preview-card">
+          <div class="dashboard-head"><div><span class="terminal-label">RECOMPENSAS ATIVAS</span><h3>Pontos que fazem acontecer</h3></div><b id="centralRewardCount">6</b></div>
+          <div class="reward-preview" id="centralRewards"></div>
+          <a href="#interacoes" class="terminal-link">&gt; abrir_todas_as_interacoes</a>
+        </article>
+      </div>
+      <p class="central-disclaimer reveal"><b>V5 compartilhada:</b> além do hub em tempo real, missão, ranking, reacts, eventos, alertas e status da live agora podem ser usados diretamente como Browser Sources transparentes no OBS.</p>
+    </section>
+
+    <section class="identity-showcase shell section">
+      <div class="section-heading reveal">
+        <div><span class="kicker">IDENTIDADE / CNBRAFA</span><h2>O canal virou um <span>universo visual</span></h2></div>
+        <p>A linguagem do site segue a estética das suas overlays: preto, vermelho neon, textura urbana, interface de streaming, coroas e elementos de evolução.</p>
+      </div>
+      <div class="identity-stage reveal delay-1">
+        <img class="identity-main" src="assets/banner-cnbrafa.png" alt="Arte gamer CNBRAFA em neon vermelho">
+        <div class="identity-copy"><span>CNBRAFA // VISUAL CORE</span><h3>Jogar. Evoluir. Conquistar.</h3><p>A arte deixa de ser só fundo e passa a fazer parte da navegação, das transições e das respostas do site às ações da comunidade.</p></div>
+      </div>
+    </section>
+
+    <section id="cronograma" class="section shell">
+      <div class="section-heading reveal">
+        <div><span class="kicker">01 / CRONOGRAMA</span><h2>Quando a live <span>acontece</span></h2></div>
+        <p>O cronograma agora é salvo no banco e pode ser alterado pelo Painel do Criador. Todos os visitantes recebem a atualização automaticamente.</p>
+      </div>
+
+      <div class="schedule-grid reveal delay-1" id="scheduleGrid">
+        <article class="schedule-card featured"><div class="day"><span>HUB</span><b>...</b></div><div class="schedule-info"><h3>Carregando cronograma</h3><p>Conectando ao banco de dados da comunidade.</p></div><div class="time">--:--</div></article>
+      </div>
+    </section>
+
+    <section id="jogos" class="section shell games-section">
+      <div class="section-heading reveal">
+        <div><span class="kicker">02 / ESCOLHER JOGOS</span><h2>A comunidade <span>decide</span></h2></div>
+        <p>Escolha o jogo que você mais quer ver. Seu voto é salvo no hub compartilhado e o ranking muda para todos em tempo real.</p>
+      </div>
+      <div class="games-grid reveal delay-1" id="gamesGrid"></div>
+      <div class="vote-footer reveal"><span id="voteMessage">Carregando seu voto...</span><button class="btn btn-ghost" id="resetVotes">Remover meu voto</button></div>
+    </section>
+
+    <section id="reacts" class="react-zone">
+      <div class="react-bg" aria-hidden="true"></div>
+      <div class="section shell split-section">
+        <div class="section-copy reveal">
+          <span class="kicker">03 / REACTS</span>
+          <h2>Mande algo que merece <span>reação ao vivo</span></h2>
+          <p>Envie vídeo, meme, trailer, clipe ou curiosidade. A fila é pensada para moderação antes de aparecer na live.</p>
+          <div class="rule-list"><div><span>01</span><p>Use links públicos e apropriados para transmissão.</p></div><div><span>02</span><p>Dê um contexto curto para facilitar a seleção.</p></div><div><span>03</span><p>O envio entra na fila — não abre automaticamente na live.</p></div></div>
+        </div>
+        <form class="glass form-card reveal delay-1" id="reactForm">
+          <div class="form-title"><span>// REACT QUEUE</span><b>ENVIAR LINK</b></div>
+          <label>Seu nome / nick<input type="text" id="reactName" placeholder="Ex.: @seunick" required maxlength="40"></label>
+          <label>Link para react<input type="url" id="reactUrl" placeholder="https://..." required></label>
+          <label>Por que vale o react?<textarea id="reactContext" rows="4" placeholder="Dá um contexto rápido..." required maxlength="280"></textarea></label>
+          <button class="btn btn-primary full" type="submit">Adicionar à fila</button>
+          <p class="form-note">O envio entra no banco como <b>pendente</b> e só avança após moderação no Painel do Criador.</p>
+          <div id="reactFeedback" class="feedback" role="status"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="interacoes" class="section shell interactions-section">
+      <div class="section-heading reveal">
+        <div><span class="kicker">04 / TWITCH INTERACTION SYSTEM</span><h2>Pontos que viram <span>acontecimentos</span></h2></div>
+        <p>Esta versão tem um laboratório funcional e também uma integração real opcional: autentica o broadcaster, sincroniza recompensas e pode ouvir novos resgates em tempo real.</p>
+      </div>
+
+      <div class="twitch-control glass reveal">
+        <div class="twitch-control-main">
+          <div class="twitch-icon">TW</div>
+          <div><span class="terminal-label">CONEXÃO TWITCH</span><h3 id="twitchConnectionTitle">Modo demonstração ativo</h3><p id="twitchConnectionText">Teste todas as interações sem precisar configurar API.</p></div>
+        </div>
+        <div class="connection-badges"><span class="status-badge demo" id="connectionBadge"><i></i> DEMO</span><span class="status-badge" id="eventBadge"><i></i> EVENTSUB OFF</span></div>
+        <div class="connection-actions">
+          <button class="btn btn-ghost" id="openTwitchSetup">Configurar Twitch</button>
+          <button class="btn btn-primary" id="connectTwitch">Conectar com Twitch</button>
+          <button class="btn btn-ghost hidden" id="disconnectTwitch">Desconectar</button>
+        </div>
+      </div>
+
+      <div class="interaction-layout">
+        <div>
+          <div class="interaction-toolbar reveal">
+            <div><span class="terminal-label">LABORATÓRIO DE RECOMPENSAS</span><strong>Teste como o site reage aos resgates</strong></div>
+            <button class="mini-btn" id="randomReward">SIMULAR RESGATE ALEATÓRIO</button>
+          </div>
+          <div class="interaction-grid reveal" id="interactionGrid"></div>
+        </div>
+
+        <aside class="reward-terminal glass reveal delay-1">
+          <div class="terminal-head"><span>CNBRAFA // EVENT FEED</span><i></i><i></i><i></i></div>
+          <div class="terminal-body">
+            <p class="terminal-label">ÚLTIMO EVENTO</p>
+            <h3 id="rewardDisplay">Aguardando interação...</h3>
+            <div class="reward-meter"><span id="rewardMeter"></span></div>
+            <p id="rewardHint">Use o modo demo ou conecte a Twitch para receber resgates reais.</p>
+            <div class="event-log" id="eventLog" aria-live="polite"><div class="empty-event">Nenhum evento nesta sessão.</div></div>
+            <a href="https://www.twitch.tv/cnbrafa" target="_blank" rel="noopener" class="btn btn-primary full">Abrir canal na Twitch ↗</a>
+          </div>
+        </aside>
+      </div>
+
+      <div class="synced-rewards glass reveal">
+        <div class="synced-head"><div><span class="terminal-label">RECOMPENSAS DO CANAL</span><h3>Twitch Channel Points</h3></div><button class="mini-btn" id="syncRewards" disabled>SINCRONIZAR RECOMPENSAS</button></div>
+        <div class="synced-grid" id="syncedRewards"><div class="sync-placeholder"><b>Modo demo</b><span>Ao conectar a conta do broadcaster, as recompensas e custos reais podem aparecer aqui.</span></div></div>
+      </div>
+    </section>
+
+    <section class="visual-break" aria-label="Estúdio CNBRAFA"><img src="assets/estudio-cnbrafa.png" alt="Estúdio gamer CNBRAFA com iluminação vermelha"><div><span>FOCO • FORÇA • EVOLUÇÃO</span><strong>A LIVE NÃO É SÓ ASSISTIDA.<br>ELA É JOGADA JUNTO.</strong></div></section>
+
+    <section id="contato" class="section shell split-section contact-section">
+      <div class="section-copy reveal">
+        <span class="kicker">05 / CONTATO</span>
+        <h2>Collab, parceria ou <span>projeto?</span></h2>
+        <p>Monte uma mensagem e copie para o canal de contato que preferir. Na evolução do site, esta área pode ser ligada a e-mail ou backend.</p>
+        <div class="contact-links"><a href="https://www.instagram.com/cnbrafa" target="_blank" rel="noopener"><b>Instagram</b><span>@cnbrafa ↗</span></a><a href="https://www.tiktok.com/@cnbrafaa" target="_blank" rel="noopener"><b>TikTok</b><span>@cnbrafaa ↗</span></a><a href="https://www.twitch.tv/cnbrafa" target="_blank" rel="noopener"><b>Twitch</b><span>cnbrafa ↗</span></a><a href="https://kick.com/cnbrafa" target="_blank" rel="noopener"><b>Kick</b><span>cnbrafa ↗</span></a><a href="https://www.youtube.com/@cnbrafa" target="_blank" rel="noopener"><b>YouTube</b><span>@cnbrafa ↗</span></a></div>
+      </div>
+      <form class="glass form-card reveal delay-1" id="contactForm">
+        <div class="form-title"><span>// CONTACT CHANNEL</span><b>NOVA MENSAGEM</b></div>
+        <label>Nome<input id="contactName" type="text" placeholder="Seu nome" required></label>
+        <label>Assunto<select id="contactSubject"><option>Collab</option><option>Parceria</option><option>Convite</option><option>Patrocínio</option><option>Feedback</option><option>Outro</option></select></label>
+        <label>Mensagem<textarea id="contactMessage" rows="6" placeholder="Conta a ideia..." required maxlength="800"></textarea></label>
+        <button class="btn btn-primary full" type="submit">Copiar mensagem pronta</button><div id="contactFeedback" class="feedback" role="status"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer shell"><div><strong>♛ CNBRAFA</strong><span>DISCIPLINA • FOCO • FORÇA • EVOLUÇÃO</span></div><p>Live Hub — V5 realtime + Modo OBS.</p><a href="#inicio">Voltar ao topo ↑</a></footer>
+
+  <div class="modal-backdrop" id="creatorModal" aria-hidden="true">
+    <div class="modal glass creator-modal admin-modal" role="dialog" aria-modal="true" aria-labelledby="creatorModalTitle">
+      <button class="modal-close" id="closeCreatorPanel" aria-label="Fechar">×</button>
+
+      <div id="adminLoginView">
+        <span class="kicker">CNBRAFA / ACESSO RESTRITO</span>
+        <h2 id="creatorModalTitle">Painel do Criador</h2>
+        <p>Entre com a senha administrativa do servidor para controlar a Central, moderar reacts e editar o cronograma.</p>
+        <form id="adminLoginForm" class="admin-login-form">
+          <label class="setup-label">Senha administrativa
+            <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Senha do painel" required>
+          </label>
+          <button class="btn btn-primary full" type="submit">Entrar no painel</button>
+          <div id="adminLoginFeedback" class="feedback" role="status"></div>
+        </form>
+      </div>
+
+      <div id="adminPanelView" class="hidden">
+        <div class="admin-head">
+          <div><span class="kicker">CNBRAFA / COMMAND CENTER</span><h2>Controle compartilhado</h2></div>
+          <div class="admin-session"><span class="status-badge live"><i></i> ADMIN ON</span><button class="mini-btn" id="adminLogout">SAIR</button></div>
+        </div>
+        <p>Alterações feitas aqui são gravadas no SQLite e distribuídas em tempo real para quem estiver com o site aberto.</p>
+
+        <div class="admin-section">
+          <div class="admin-section-title"><span>01</span><div><b>CENTRAL DA LIVE</b><small>Status, missão e meta global.</small></div></div>
+          <div class="creator-grid">
+            <label class="setup-label">Fonte do status<select id="creatorMode"><option value="manual">Manual / painel</option><option value="auto">Twitch → sincronizar ao hub</option></select></label>
+            <label class="setup-label">Estado<select id="creatorLive"><option value="false">Standby / offline</option><option value="true">Ao vivo</option></select></label>
+            <label class="setup-label">Jogo atual<input id="creatorGame" type="text" maxlength="60" placeholder="Ex.: Counter-Strike 2"></label>
+            <label class="setup-label">Viewers<input id="creatorViewers" type="number" min="0" step="1" placeholder="0"></label>
+            <label class="setup-label wide">Título da live<input id="creatorTitle" type="text" maxlength="140" placeholder="Título que aparece na Central"></label>
+            <label class="setup-label wide">Nome da missão<input id="creatorMission" type="text" maxlength="80" placeholder="Ex.: Completar a meta da comunidade"></label>
+            <label class="setup-label">Progresso<input id="creatorGoalCurrent" type="number" min="0" step="1"></label>
+            <label class="setup-label">Meta<input id="creatorGoalTarget" type="number" min="1" step="1"></label>
+            <label class="setup-label wide">Desafio coletivo<input id="creatorChallenge" type="text" maxlength="180" placeholder="Mensagem do desafio da sessão"></label>
+          </div>
+          <div class="modal-actions"><button class="btn btn-primary" id="saveCreatorPanel">Salvar na Central</button><button class="btn btn-ghost" id="resetCreatorPanel">Restaurar padrão</button></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title"><span>02</span><div><b>MODERAÇÃO DE REACTS</b><small>Aprovar, priorizar, concluir ou rejeitar.</small></div><strong id="adminPendingCount">0 pendentes</strong></div>
+          <div class="admin-react-list" id="adminReactList"><div class="sync-placeholder">Carregando fila...</div></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title"><span>03</span><div><b>CRONOGRAMA</b><small>Edite os blocos que aparecem publicamente.</small></div></div>
+          <div class="admin-schedule-list" id="adminScheduleEditor"></div>
+          <button class="btn btn-primary" id="saveSchedule">Salvar cronograma</button>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-title"><span>04</span><div><b>JOGOS</b><small>Adicione novas opções à votação global.</small></div></div>
+          <form id="adminGameForm" class="admin-game-form">
+            <input id="adminGameIcon" type="text" maxlength="8" placeholder="🎮">
+            <input id="adminGameName" type="text" maxlength="60" placeholder="Nome do jogo" required>
+            <input id="adminGameDesc" type="text" maxlength="180" placeholder="Descrição curta">
+            <button class="mini-btn" type="submit">ADICIONAR</button>
+          </form>
+          <div id="adminGameList" class="admin-game-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="twitchModal" aria-hidden="true">
+    <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="twitchModalTitle">
+      <button class="modal-close" id="closeTwitchSetup" aria-label="Fechar">×</button>
+      <span class="kicker">TWITCH / SETUP</span><h2 id="twitchModalTitle">Conectar o canal</h2>
+      <p>Para ativar o modo real, crie um aplicativo no Twitch Developer Console, cadastre a URL deste site como OAuth Redirect URL e cole apenas o <b>Client ID</b> abaixo. O token de acesso fica somente na sessão do navegador.</p>
+      <label class="setup-label">Twitch Client ID<input id="twitchClientId" type="text" autocomplete="off" placeholder="Cole o Client ID do seu app"></label>
+      <label class="setup-label">OAuth Redirect URL<input id="twitchRedirectUri" type="url" autocomplete="off" placeholder="https://seusite.com/"></label>
+      <div class="scope-box"><span>ESCOPO SOLICITADO</span><code>channel:read:redemptions</code></div>
+      <div class="modal-actions"><button class="btn btn-primary" id="saveTwitchSetup">Salvar configuração</button><a class="btn btn-ghost" href="https://dev.twitch.tv/console/apps" target="_blank" rel="noopener">Abrir Twitch Developers ↗</a></div>
+      <p class="setup-note">A conta conectada deve ser a conta broadcaster que possui as recompensas do canal.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
